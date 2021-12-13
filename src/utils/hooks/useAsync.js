@@ -1,28 +1,24 @@
-import  { useCallback,  useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 import useSafeDispatch from './useSafeDispatch';
 
-const asyncReducer = (state, action) => {
-  switch (action.type) {
-    case 'pending':
-      return { ...state, data: null, error: null, status: 'pending' };
-    case 'resolved':
-      return { ...state, data: action.data, error: null, status: 'resolved' }
-    case 'rejected':
-      return { ...state, data: null, error: action.error, status: 'rejected' }
-    default:
-      throw Error(`unsopported action type "${action.type}"`);
-  }
-}
-
-export function useAsync(initialState) {
-  const [state, unsafeDispatch] = useReducer(asyncReducer, { data: null, error: null, status: 'idle', ...initialState })
+export function useAsync() {
+  const [state, unsafeDispatch] = useReducer((state, newState) => ({ ...state, ...newState }), { data: null, error: null, status: 'idle' })
   const dispatch = useSafeDispatch(unsafeDispatch);
+
+  const setData = useCallback((data) => dispatch({ data, status: 'resolved' }), [dispatch]);
+  const setError = useCallback((error) => dispatch({ error, status: 'rejected' }), [dispatch])
   const run = useCallback((promise) => {
     if (!promise) return;
-    dispatch({ type: 'pending'})
-    promise.then((res) => dispatch({ type: 'resolved', data: res.data }),
-      error => dispatch({ type: 'rejected', error }))
-  }, [dispatch])
-  const isLoading = state.status === 'pending' || state.status === 'idle'
-  return { ...state, isLoading, run}
+    dispatch({ status: 'pending' })
+    promise.then((data) => {
+      setData(data)
+      return data;
+    },
+      error => {
+        setError({ error })
+        return promise.reject(error);
+      })
+  }, [dispatch, setData, setError])
+  const isLoading = state.status === 'pending'
+  return { ...state, isLoading, run, setData, setError }
 }
