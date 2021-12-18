@@ -12,6 +12,7 @@ import { FullPageSpinner } from "./components/lib";
 import Lists from "./routes/lists";
 import useLocalStorageState from "./utils/hooks/useLocalStorageState";
 import AddTool from "./routes/addTool";
+import Tool from "./routes/tool";
 const Test = () => <div>this is the list</div>
 const getList = async () => {
     let lists = null;
@@ -47,6 +48,7 @@ export default function AuthorizedApp({ logout }) {
             <Routes>
                 <Route path='/lists' element={<Lists lists={lists} setLists={setLists} setList={setList} />} />
                 <Route path='/tool/add' element={<AddTool tools={tools} setTools={setTools} runTools={runTools} list={list} />} />
+                <Route path='/tool/:id' element={<Tool tools={tools} list={list} />} />
             </Routes>
         )}
         </>
