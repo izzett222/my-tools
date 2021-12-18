@@ -6,6 +6,9 @@ import { useAsync } from './utils/hooks/useAsync';
 import * as auth from "./auth";
 import client from './utils/api-client';
 import UnauthorizedApp from "./UnauthorizedApp";
+import AuthorizedApp from "./authorizedApp";
+import { FullPageSpinner } from "./components/lib";
+import "@reach/dialog/styles.css";
 
 const getUser = async () => {
   let user = null;
@@ -19,7 +22,7 @@ const getUser = async () => {
 
 
 function App() {
-  const { data: user, run, isLoading, setData } = useAsync();
+  const { data: user, run, isLoading, setData, isIdle } = useAsync();
 
   // get user info and sign them up if they have a valid token
   useEffect(() => {
@@ -37,9 +40,13 @@ function App() {
       return data;
     })
   }
+  const logout = () => {
+    auth.logout();
+    setData(null);
+  } 
 
-  if(isLoading) return <div>loading</div>
-  return (user ? <h1>authenticated</h1> : <UnauthorizedApp signup={signup} login={login} />);
+  if(isLoading || isIdle) return <FullPageSpinner />
+  return (user ? <AuthorizedApp user={user} logout={logout} />: <UnauthorizedApp signup={signup} login={login} />);
 }
 
 export default App;

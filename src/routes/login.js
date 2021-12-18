@@ -1,6 +1,7 @@
 /** @jsxRuntime classic /
 /* @jsx jsx */
 import { jsx } from "@emotion/react";
+import { Link } from "react-router-dom";
 import Header from "../components/header";
 import { AuthInput, Button, Label } from "../components/lib";
 import { useAsync } from "../utils/hooks/useAsync";
@@ -49,9 +50,20 @@ export default function Login({ handleSubmit }) {
                 <AuthInput type='text' id='username' required placeholder="Enter your username" />
                 <Label htmlFor="password">Password</Label>
                 <AuthInput type='password' id='password' required placeholder="Enter your password" />
-                <Button css={{
-                    marginTop: 16
-                }} disabled={isLoading}>{isLoading ? 'loading' : 'Login'}</Button>
+                <div css={{
+                    marginTop: 16,
+                    display: 'flex'
+                }}>
+                    <Button disabled={isLoading}>{isLoading ? 'loading' : 'Login'}</Button>
+                    <span css={{
+                        color: 'rgba(72, 72, 62, 0.9)',
+                        fontSize: 14,
+                        display: 'inline-block',
+                        marginLeft: 16,
+                        alignSelf: 'center'
+                    }}>Not yet joined, <Link to='/' css={{ color: 'rgba(72, 72, 62, 0.9)'}} >click here to Join</Link></span>
+                </div>
+
 
 
             </form>

@@ -15,10 +15,12 @@ export function useAsync() {
       return data;
     },
       error => {
+        console.log(error);
         setError({ error })
         return promise.reject(error);
       })
   }, [dispatch, setData, setError])
-  const isLoading = state.status === 'pending'
-  return { ...state, isLoading, run, setData, setError }
+  const isLoading = state.status === 'pending';
+  const isIdle = state.status === 'idle';
+  return { ...state, isLoading, isIdle, run, setData, setError }
 }

@@ -1,19 +1,18 @@
 /** @jsxRuntime classic /
 /* @jsx jsx */
 import { jsx } from "@emotion/react";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Header from "../components/header";
 import { AuthInput, Label, Button } from "../components/lib";
 import { useAsync } from "../utils/hooks/useAsync";
 
 export default function Signup({handleSubmit}) {
-    const {status, run, isLoading} = useAsync()
+    const {status, run} = useAsync()
     const submit = (event) => {
         event.preventDefault();
         const { username, password} = event.target.elements
         run(handleSubmit(username.value, password.value))
     }
-    console.log(isLoading, '=== is loading login')
     return (
         <div css={{
         }}>
@@ -59,7 +58,20 @@ export default function Signup({handleSubmit}) {
                 <AuthInput id='username' required placeholder="Enter your usernmae" />
                 <Label htmlFor='password' css={{ marginTop: 12 }}>password</Label>
                 <AuthInput id='password' required placeholder="Enter your Password" />
-                <Button disabled={status ==='pending'} css={{ marginTop: 16}}>{status === 'pending' ? 'loading' : 'Join'}</Button>
+                
+                <div css={{
+                    marginTop: 16,
+                    display: 'flex'
+                }}>
+                   <Button disabled={status ==='pending'}>{status === 'pending' ? 'loading' : 'Join'}</Button>
+                    <span css={{
+                        color: 'rgba(72, 72, 62, 0.9)',
+                        fontSize: 14,
+                        display: 'inline-block',
+                        marginLeft: 16,
+                        alignSelf: 'center'
+                    }}>Already joined, <Link to='/login' css={{ color: 'rgba(72, 72, 62, 0.9)'}} >click here to log in</Link></span>
+                </div>
             </form>
             </main>
         </div>

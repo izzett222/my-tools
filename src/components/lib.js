@@ -1,8 +1,28 @@
 /** @jsxRuntime classic /
 /* @jsx jsx */
-// import { jsx, keyframes } from '@emotion/react';
+import { jsx, keyframes } from '@emotion/react';
 import styled from '@emotion/styled/macro';
+import { FaSpinner } from 'react-icons/fa'
 
+
+export function Tag({ name, ...props }) {
+    return <div css={{
+        background: '#FBFBFB',
+        border: '1px solid #F3F2F2',
+        borderRadius: 2,
+        marginRight: 4,
+        color: '#353522',
+        opacity: 0.9,
+        padding: '2px 24px'
+    }} {...props}><span>{name}</span></div>
+} 
+
+export const ToolHeader = styled.p({
+    color: '#353522',
+    fontSize: 24,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+})
 export const Label = styled.label({
     color: '#48483E',
     fontFamily: 'Cairo',
@@ -40,4 +60,34 @@ export const Button = styled.button({
     fontSize: 18,
     color: '#48483E',
     borderRadius: 3
+})
+
+const spin = keyframes({
+    '0%': { transform: 'rotate(0deg)' },
+    '100%': { transform: 'rotate(360deg)' },
+})
+export const Spinner = styled(FaSpinner)({
+    animation: `${spin} 1s linear infinite`,
+})
+
+export function FullPageSpinner() {
+    return (
+        <div
+            css={{
+                fontSize: '4em',
+                height: 'calc(100vh - 16px)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            <Spinner />
+        </div>
+    )
+}
+
+export const P = styled.p({
+    fontSize: 16,
+    color: '#353522'
 })
