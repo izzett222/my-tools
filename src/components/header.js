@@ -16,14 +16,21 @@ export default function Header({ logout }) {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                margin: 'auto'
+                margin: 'auto',
+                "@media (max-width: 704px)": {
+                    marginRight: 16,
+                    marginLeft: 16,
+                }
             }}>
             <h1 css={{
                 fontFamily: "'Rakkas', cursive",
                 color: '#DC7C7C',
                 fontSize: 24,
                 fontWeight: 'normal',
-                marginLeft: !logout ? 0 : 'auto'
+                "@media (max-width: 704px)": {
+                    marginLeft: 0
+                },
+                marginLeft: !logout ? 0 : 'auto',
 
             }}>My Tools</h1>
             {logout && <button css={{
@@ -36,7 +43,7 @@ export default function Header({ logout }) {
                 color: '#65655B',
                 padding: '4px 16px',
                 borderRadius: 2,
-                cursor:'pointer'
+                cursor: 'pointer'
 
 
             }} onClick={logout}>log out</button>}
@@ -44,45 +51,4 @@ export default function Header({ logout }) {
 
     </div>)
 }
-
-// /* Group 13 */
-
-// position: absolute;
-// width: 96px;
-// height: 32px;
-// left: 815px;
-// top: 14px;
-
-
-
-// /* Rectangle 6 */
-
-// position: absolute;
-// width: 96px;
-// height: 32px;
-// left: 815px;
-// top: 14px;
-
-// background: #FFFFFF;
-// border: 1px solid #D3D3D3;
-// box-sizing: border-box;
-// border-radius: 2px;
-
-
-// /* Log out */
-
-// position: absolute;
-// width: 48px;
-// height: 16px;
-// left: 839px;
-// top: 22px;
-
-// font-family: Roboto;
-// font-style: normal;
-// font-weight: normal;
-// font-size: 14px;
-// line-height: 16px;
-
-// color: #65655B;
-
 

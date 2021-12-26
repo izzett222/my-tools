@@ -14,7 +14,7 @@ const getUser = async () => {
   let user = null;
   const token = auth.getToken();
   if (token) {
-    const { data } = await client('user', { token });
+    const { data } = await client('auth/user', { token });
     user = data;
   }
   return user;

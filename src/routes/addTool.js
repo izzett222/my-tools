@@ -16,7 +16,7 @@ const newTool = async (body, tools, setTools, dismiss) => {
     let tool = null;
     const token = auth.getToken();
     if (token) {
-        const { data } = await client('tool/add', { token, data: body });
+        const { data } = await client('tools/add', { token, data: body });
         tool = data;
         const newTools = [...tools];
         newTools.push(tool);
@@ -29,7 +29,7 @@ const newTool = async (body, tools, setTools, dismiss) => {
 export default function AddTool({ tools, setTools, runTools, list }) {
     const navigate = useNavigate();
     const { run } = useAsync()
-    const [tags, setTags] = useState(['react', 'router', 'react suspense']);
+    const [tags, setTags] = useState([]);
     const [addNewTag, setAddNewTag] = useState(false);
     function onDismiss() {
         navigate(-1);
@@ -37,8 +37,7 @@ export default function AddTool({ tools, setTools, runTools, list }) {
     function onSubmit(e) {
         e.preventDefault();
         const { name, description, link } = e.target.elements;
-        console.log(name.value, description.value, link.value, '============');
-        run(newTool({ name: name.value, description: description.value, link: link.value, lists: [list], tags }, tools, setTools, onDismiss))
+        run(newTool({ name: name.value, description: description.value, link: link.value, lists: list, tags }, tools, setTools, onDismiss))
     }
     function addTag(event) {
         event.preventDefault();

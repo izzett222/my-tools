@@ -15,7 +15,7 @@ const addLists = async (setLists, lists, list, dismiss) => {
     let returnedList = null;
     const token = auth.getToken();
     if (token) {
-        const { data } = await client('list/new', { token, data: list });
+        const { data } = await client('lists/new', { token, data: list });
         returnedList = data;
         const newLists = [...lists];
         newLists.push(returnedList);
@@ -58,14 +58,10 @@ export default function Lists({ lists, setLists, setList }) {
 
     }
     function createNewList() {
-        console.log('I got here')
         run(addLists(setLists, lists, { name: filter }, onDismiss))
     }
 
-    const filteredLists = lists.sort((a, b) => {
-        if (a.name === 'All my tools') return -1;
-        return 0;
-    }).filter((list) => list.name.startsWith(filter.trim()))
+    const filteredLists = lists.filter((list) => list.name.startsWith(filter.trim()))
     return <DialogOverlay css={{
         background: 'rgba(15, 15, 15, 0.55)'
     }} onDismiss={onDismiss} aria-labelledby="label">
@@ -118,11 +114,16 @@ export default function Lists({ lists, setLists, setList }) {
                 height: 174,
                 borderRadius: 4
             }}>
+                {filteredLists.length !== 0 ? (<ListItem onClick={() => {
+                    setList('All my tools');
+                    onDismiss();
+                }}>All my tools</ListItem>) : null}
+            
                 {filteredLists.map((list) => <ListItem key={list.id} onClick={() => {
                     setList(list.name);
                     onDismiss();
                 }}>{list.name}</ListItem>)}
-                {filteredLists.length === 0 ? <ListItem onClick={() => {
+                {filteredLists.length === 0 && filter.trim().length !== 0 ? <ListItem onClick={() => {
                     setList(filter);
                     createNewList()
                 }}><span css={{
