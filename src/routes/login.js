@@ -33,7 +33,26 @@ export default function Login({ handleSubmit }) {
                 height: 341,
                 width: 487,
                 marginTop: 100,
-                paddingLeft: 40
+                paddingLeft: 40,
+                input: {
+                    ' @media (max-width: 450px)': {
+                        flexGrow: 1,
+                        width: 'auto'
+                    },
+                },
+                ' @media (max-width: 590px)': {
+                    width: "auto",
+                    flexGrow: 1,
+                    marginRight: 16,
+                    marginLeft: 16,
+                },
+                ' @media (max-width: 450px)': {
+                    paddingLeft: 16,
+                    paddingRight: 16,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    paddingBottom: 16
+                },
 
             }}>
                 <h1 css={{
@@ -61,7 +80,7 @@ export default function Login({ handleSubmit }) {
                         display: 'inline-block',
                         marginLeft: 16,
                         alignSelf: 'center'
-                    }}>Not yet joined, <Link to='/' css={{ color: 'rgba(72, 72, 62, 0.9)'}} >click here to Join</Link></span>
+                    }}>Not yet joined, <Link to='/' css={{ color: 'rgba(72, 72, 62, 0.9)' }} >click here to Join</Link></span>
                 </div>
 
 

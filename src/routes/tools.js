@@ -22,9 +22,8 @@ const getTools = async (list) => {
 }
 export default function Tools({ list, tools, run, logout }) {
     const location = useLocation();
-    const navigate  = useNavigate()
+    const navigate = useNavigate()
     const [filter, setFilter] = useState('');
-
     useEffect(() => {
         run(getTools(list))
     }, [list, run])
@@ -39,7 +38,16 @@ export default function Tools({ list, tools, run, logout }) {
             width: '100%',
             maxWidth: 672,
             margin: '0 auto',
-            borderBottom: '2px solid #F4F4F4'
+            borderBottom: '2px solid #F4F4F4',
+            "@media (max-width: 702px)": {
+                width: 'auto',
+                marginRight: 16,
+                marginLeft: 16,
+            },
+            "@media (max-width: 404px)": {
+                paddingBottom: 16,
+                height: 'auto'
+            }
         }}>
             <Link
                 to='/lists'
@@ -75,14 +83,21 @@ export default function Tools({ list, tools, run, logout }) {
                     marginTop: 50,
                     display: 'flex',
                     justifyContent: 'space-between',
-                    position: 'relative'
+                    position: 'relative',
+                    "@media (max-width: 404px)": {
+                        flexDirection: 'column',
+                        height: 'auto'
+                    }
                 }}>
                 <div css={{
                     border: '1px solid #D3D3D3',
                     background: 'none',
                     display: 'flex',
                     width: 264,
-                    position: 'relative'
+                    position: 'relative',
+                    "@media (max-width: 404px)": {
+                        width: '100%'
+                    }
                 }}>
                     <img src={search} height={24} width={24} alt="search icon" css={{
                         display: 'block',
@@ -108,19 +123,22 @@ export default function Tools({ list, tools, run, logout }) {
                         }} />
                 </div>
 
-                <button 
-                onClick={() => navigate('/tool/add', { state: { backgroundLocation: location }})}
-                css={{
-                    color: '#353522',
-                    opacity: 0.9,
-                    background: '#F3ED5D',
-                    border: '1px solid #D3D3D3',
-                    borderRadius: 2,
-                    paddingRight: 16,
-                    paddingLeft: 16,
-                    cursor: 'pointer'
+                <button
+                    onClick={() => navigate('/tool/add', { state: { backgroundLocation: location } })}
+                    css={{
+                        color: '#353522',
+                        opacity: 0.9,
+                        background: '#F3ED5D',
+                        border: '1px solid #D3D3D3',
+                        borderRadius: 2,
+                        paddingRight: 16,
+                        paddingLeft: 16,
+                        cursor: 'pointer',
+                        "@media (max-width: 404px)": {
+                            marginTop: 16,
+                        }
 
-                }}>add a tool</button>
+                    }}>add a tool</button>
             </div>
         </div>
         <ToolList tools={tools} filter={filter} />

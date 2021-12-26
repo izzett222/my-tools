@@ -15,7 +15,6 @@ export function useAsync() {
       return data;
     },
       error => {
-        console.log(error);
         setError({ error })
         return promise.reject(error);
       })

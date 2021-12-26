@@ -21,6 +21,10 @@ export default function Signup({handleSubmit}) {
                 display: "flex",
                 justifyContent: 'center',
                 marginTop: 74,
+                ' @media (max-width: 920px)': {
+                    marginRight: 16,
+                    marginLeft: 16,
+                },
             }}>
             <div css={{
                 fontFamily: 'Cairo',
@@ -28,7 +32,10 @@ export default function Signup({handleSubmit}) {
                 lineHeight: '125.69%',
                 width: 398, 
                 color: '#48483E',
-                alignSelf: 'center'
+                alignSelf: 'center',
+                ' @media (max-width: 820px)': {
+                    display: 'none'
+                },
                 
             }}>
             Save and keep all your development tools in one place
@@ -39,10 +46,29 @@ export default function Signup({handleSubmit}) {
                 height: 387,
                 opacity: 0.7,
                 marginLeft: 64,
-                marginRight: 64
+                marginRight: 64,
+                ' @media (max-width: 920px)': {
+                    marginRight: 24,
+                    marginLeft: 24,
+                },
+                ' @media (max-width: 820px)': {
+                    display: 'none'
+                },
             }}></div>
             <form css={{
-                alignSelf: "center"
+                alignSelf: "center",
+                input: {
+                    ' @media (max-width: 450px)': {
+                        flexGrow: 1,
+                        width: 'auto'
+                    },
+                },
+                ' @media (max-width: 820px)': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    border: '1px solid #D3D3D3',
+                    padding: 16
+                },
             }} onSubmit={submit}>
                 <h1 css={{
                     fontSize: 30,
@@ -55,9 +81,9 @@ export default function Signup({handleSubmit}) {
                 }}>Join Now</h1>
                 { status === 'rejected' ? <div style={{color: 'red'}}>server error</div> : null}
                 <Label htmlFor='username'>Username</Label>
-                <AuthInput id='username' required placeholder="Enter your usernmae" />
+                <AuthInput id='username' required placeholder="Enter your username" />
                 <Label htmlFor='password' css={{ marginTop: 12 }}>password</Label>
-                <AuthInput id='password' required placeholder="Enter your Password" />
+                <AuthInput id='password' type='password' required placeholder="Enter your Password" />
                 
                 <div css={{
                     marginTop: 16,

@@ -16,5 +16,6 @@ export const signup = (username, password) => {
 }
 export const logout = () => {
     window.localStorage.removeItem('token');
+    window.localStorage.removeItem('default-list');
 
 }

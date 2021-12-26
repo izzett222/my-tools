@@ -10,7 +10,7 @@ const client = (path, { token, data, headers: customHeaders, ...customOptions}) 
         },
         ...customOptions
     };
-    return window.fetch(`${process.env.REACT_APP_API_URL}/${path}`, options).then(async response => {
+    return window.fetch(`${process.env.REACT_APP_API_URL}/api/${path}`, options).then(async response => {
         // when user doesn't have the right authorization we will reject the promise and reload the page
         const data = await response.json();
         if(response.status === 401) {
